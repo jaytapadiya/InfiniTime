@@ -84,7 +84,13 @@ void HeartRate::Refresh() {
       lv_label_set_text(label_hr, "000");
       break;
     default:
-      lv_label_set_text_fmt(label_hr, "%03d", heartRateController.HeartRate());
+      if (heartRateController.HeartRate() > 80) {
+        lv_label_set_text_fmt(label_hr, "%03d", heartRateController.HeartRate());
+        lv_obj_set_style_local_text_color(label_hr, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_RED);
+      } else {
+        lv_label_set_text_fmt(label_hr, "%03d", heartRateController.HeartRate());
+        lv_obj_set_style_local_text_color(label_hr, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_GRAY);
+      }
   }
 
   lv_label_set_text(label_status, ToString(state));
